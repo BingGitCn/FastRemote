@@ -1,0 +1,271 @@
+<Window
+    x:Class="FastRemote.Views.CreateConnectionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FastRemote.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="创建新远程连接"
+    Width="560"
+    Height="390"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    AllowsTransparency="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    Background="Transparent"
+    mc:Ignorable="d">
+    <Border Background="{DynamicResource MaterialDesign.Brush.Background}" CornerRadius="4" BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="4"
+                Direction="270"
+                Opacity="0.3"
+                ShadowDepth="2"
+                Color="Black" />
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--  Custom Title Bar  -->
+            <Grid
+                Grid.Row="0"
+                Height="30"
+                Background="#6639b5"
+                MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=Title}" />
+                <Button Visibility="Collapsed"
+                    Grid.Column="1"
+                    Click="CloseButton_Click"
+                    Style="{StaticResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon Foreground="White" Kind="WindowClose" />
+                </Button>
+            </Grid>
+
+            <TabControl Grid.Row="1" Margin="0,0,0,10">
+                <TabItem Header="基本设置">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Text="IP 地址:" />
+                        <TextBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="5,2"
+                            materialDesign:HintAssist.Hint="例如: 192.168.1.10"
+                            Style="{StaticResource MaterialDesignTextBox}"
+                            Text="{Binding IpAddress, Mode=TwoWay}" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Text="用户名:" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="5,2"
+                            materialDesign:HintAssist.Hint="例如: Administrator"
+                            Style="{StaticResource MaterialDesignTextBox}"
+                            Text="{Binding UserName, Mode=TwoWay}" />
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Text="密码:" />
+                        <PasswordBox
+                            x:Name="PasswordBox"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="5,2"
+                            materialDesign:HintAssist.Hint="留空则不保存密码"
+                            Style="{StaticResource MaterialDesignPasswordBox}" />
+
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Text="备注:" />
+                        <TextBox
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="5,2"
+                            materialDesign:HintAssist.Hint="例如: 我的服务器"
+                            Style="{StaticResource MaterialDesignTextBox}"
+                            Text="{Binding Remark, Mode=TwoWay}" />
+
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Text="桌面宽度:" />
+                        <TextBox
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Margin="5,2"
+                            materialDesign:HintAssist.Hint="例如: 1920"
+                            Style="{StaticResource MaterialDesignTextBox}"
+                            Text="{Binding DesktopWidth, Mode=TwoWay}" />
+
+                        <TextBlock
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Text="桌面高度:" />
+                        <TextBox
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Margin="5,2"
+                            materialDesign:HintAssist.Hint="例如: 1080"
+                            Style="{StaticResource MaterialDesignTextBox}"
+                            Text="{Binding DesktopHeight, Mode=TwoWay}" />
+
+                        <TextBlock
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            Text="颜色深度:" />
+                        <TextBox
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            Margin="5,2"
+                            materialDesign:HintAssist.Hint="例如: 32"
+                            Style="{StaticResource MaterialDesignTextBox}"
+                            Text="{Binding ColorDepth, Mode=TwoWay}" />
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="显示选项">
+                    <StackPanel Margin="5">
+                        <CheckBox
+                            Margin="5"
+                            Content="使用多显示器"
+                            IsChecked="{Binding UseMultipleMonitors, Mode=TwoWay}" />
+                        <TextBlock Margin="5" Text="屏幕模式 ID:" />
+                        <TextBox
+                            Margin="5,2"
+                            materialDesign:HintAssist.Hint="例如: 2 (全屏)"
+                            Style="{StaticResource MaterialDesignTextBox}"
+                            Text="{Binding ScreenModeId, Mode=TwoWay}" />
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem Header="本地资源">
+                    <StackPanel Margin="5">
+                        <CheckBox
+                            Margin="5"
+                            Content="重定向打印机"
+                            IsChecked="{Binding RedirectPrinters, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="重定向 COM 端口"
+                            IsChecked="{Binding RedirectComPorts, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="重定向智能卡"
+                            IsChecked="{Binding RedirectSmartCards, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="重定向 POS 设备"
+                            IsChecked="{Binding RedirectPosDevices, Mode=TwoWay}" />
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem Header="性能选项">
+                    <StackPanel Margin="5">
+                        <CheckBox
+                            Margin="5"
+                            Content="禁用桌面背景"
+                            IsChecked="{Binding DisableWallpaper, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="允许字体平滑"
+                            IsChecked="{Binding AllowFontSmoothing, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="允许桌面组合"
+                            IsChecked="{Binding AllowDesktopComposition, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="禁用全窗口拖动"
+                            IsChecked="{Binding DisableFullWindowDrag, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="禁用菜单动画"
+                            IsChecked="{Binding DisableMenuAnims, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="禁用主题"
+                            IsChecked="{Binding DisableThemes, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="禁用光标设置"
+                            IsChecked="{Binding DisableCursorSetting, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="5"
+                            Content="启用持久位图缓存"
+                            IsChecked="{Binding BitmapCachePersistentEnable, Mode=TwoWay}" />
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+
+            <StackPanel
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Margin="5 5 5 20"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    Width="75"
+                    Margin="5"
+                    Command="{Binding OkCommand}"
+                    Content="确  定"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                <Button
+                    Width="75"
+                    Margin="5"
+                    Command="{Binding CancelCommand}"
+                    Content="取  消"
+                    Style="{StaticResource MaterialDesignFlatButton}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
