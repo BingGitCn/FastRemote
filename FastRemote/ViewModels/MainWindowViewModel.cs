@@ -19,7 +19,7 @@ namespace  FastRemote.ViewModels
     public partial class MainWindowViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _title = "Fast Remote";
+        private string _title = "Fast Remote (Leader Tech)";
 
         private ObservableCollection<RemoteConnection> _remoteConnections;
         public ObservableCollection<RemoteConnection> RemoteConnections
@@ -37,7 +37,7 @@ namespace  FastRemote.ViewModels
 
         public MainWindowViewModel()
         {
-            _dataFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FastRemote", "connections.json");
+            _dataFilePath = Path.Combine("C:\\FastRemote", "connections.json");
             LoadConnections();
             StartConnectionStatusChecker();
         }
